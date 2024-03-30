@@ -1,6 +1,6 @@
 function Loading() {
   return (
-    <span className="loading loading-spinner loading-lg text-primary center" />
+    <span className="loading loading-spinner loading-lg text-base-300 self-center" />
   );
 }
 

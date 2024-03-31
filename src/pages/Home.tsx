@@ -1,10 +1,12 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
-import { Loading } from "../components/Loading";
+import { TagContainer } from "../components/TagContainer";
+import { Pagination } from "../components/Pagination";
 import { NoContent } from "../components/NoContent";
-import { ReadTags } from "../types";
+import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
+import { ReadTags } from "../types";
 
 function Home() {
   const [params, setParams] = useSearchParams();
@@ -51,14 +53,7 @@ function Home() {
   }, [page]);
 
   const fetchedTags = data?.map((tag: ReadTags) => (
-    <div>
-      <div className="flex flex-col sm:flex-row place-items-center sm:justify-around p-3 bg-neutral-content">
-        <h2>{tag.name}</h2>
-        <span className="text-xl font-thin hidden lg:inline">{"-->"}</span>
-        <span>{tag.count}</span>
-      </div>
-      <div className="divider"></div>
-    </div>
+    <TagContainer key={tag.id} tag={tag} />
   ));
 
   const content = isLoading ? (
@@ -144,28 +139,12 @@ function Home() {
           <span className="font-light">Ilość</span>
         </div>
         {content}
-        <div className="join mt-10 justify-center">
-          <button
-            className="join-item btn"
-            disabled={isFirst}
-            onClick={() => changePage(-1)}
-          >
-            «
-          </button>
-
-          <button className="join-item btn hidden sm:block">
-            Strona {page}
-          </button>
-          <button className="join-item btn sm:hidden">{page}</button>
-
-          <button
-            className="join-item btn"
-            disabled={isLast}
-            onClick={() => changePage(1)}
-          >
-            »
-          </button>
-        </div>
+        <Pagination
+          isFirst={isFirst}
+          isLast={isLast}
+          page={page}
+          onPageChange={changePage}
+        />
       </div>
     </div>
   );

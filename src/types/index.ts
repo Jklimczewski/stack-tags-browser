@@ -4,3 +4,8 @@ export interface FilterQueryParams {
   sort: string;
   order: string;
 }
+
+export interface ReadTags {
+  name: string;
+  count: number;
+}

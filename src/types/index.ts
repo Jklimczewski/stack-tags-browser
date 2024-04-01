@@ -17,3 +17,8 @@ export interface PaginationProps {
   page: number;
   onPageChange: (value: number) => void;
 }
+
+export interface SelectOption {
+  value: string | number;
+  label: string;
+}
